@@ -4,7 +4,6 @@ from datetime import datetime
 from sqlalchemy import Column, Integer, DateTime
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
 
-
 @as_declarative()
 class Base:
     __abstract__ = True
