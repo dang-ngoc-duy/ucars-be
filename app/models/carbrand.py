@@ -1,3 +1,4 @@
+# CarBrand Model
 from sqlalchemy import Boolean, Column, Integer, String, DateTime
 
 from app.models.base import BareBaseModel

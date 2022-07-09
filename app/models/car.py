@@ -4,7 +4,6 @@ from sqlalchemy.orm import relationship
 from app.models.base import BareBaseModel
 from app.models.carbrand import CarBrand
 
-
 class Car(BareBaseModel):
     carbrand = relationship(CarBrand)
 
