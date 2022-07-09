@@ -1,15 +1,11 @@
-from typing import Generator
-from app.core.config import settings
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from core.config import settings
 
-engine = create_engine(settings.DATABASE_URL, pool_pre_ping=True)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+import sqlalchemy as _sql
+import sqlalchemy.orm as _orm
+import sqlalchemy.ext.declarative as _declarative
 
+engine = _sql.create_engine(settings.DATABASE_URL, pool_pre_ping=True)
 
-def get_db() -> Generator:
-    try:
-        db = SessionLocal()
-        yield db
-    finally:
-        db.close()
+SessionLocal = _orm.sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = _declarative.declarative_base()
