@@ -1,17 +1,22 @@
 # CarBrand Model
-from sqlalchemy import Boolean, Column, Integer, String, DateTime
+import datetime as _dt
+from email.policy import default
+import sqlalchemy as _sql
 
-from app.models.base import BareBaseModel
+import db.base as _db
 
-class CarBrand(BareBaseModel):
-    br_id = Column(String, primary_key=True, nullable=False)
-    name = Column(String)
-    numof_model = Column(Integer)
-    logo = Column(String)
-    describe = Column(String)
-    status = Column(Boolean)
-    created_by = Column(String)
-    updated_by = Column(String)
-    deleted_by = Column(String)
-    deleted_at = Column(DateTime)
-    deleted = Column(Boolean, default=False)
+class CarBrand(_db.Base):
+    __tablename__='carbrand'
+
+    id = _sql.Column(_sql.String, primary_key=True, index=True, nullable=False)
+    name = _sql.Column(_sql.String, index=True)
+    logo = _sql.Column(_sql.String, index=True)
+    describe = _sql.Column(_sql.String, index=True)
+    status = _sql.Column(_sql.Boolean, default=False)
+    created_by = _sql.Column(_sql.String, index=True)
+    created_at = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
+    updated_by = _sql.Column(_sql.String, index=True)
+    updated_at = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
+    deleted_by = _sql.Column(_sql.String, index=True)
+    deleted_at = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
+    deleted = _sql.Column(_sql.Boolean, default=False)
