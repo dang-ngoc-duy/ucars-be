@@ -28,6 +28,7 @@ class CarBrandService(object):
             name = data.name,
             logo = data.logo,
             describe = data.describe,
+            number_of_models = data.number_of_models,
             status = data.status,
             created_by = data.created_by,
             created_at = data.created_at,

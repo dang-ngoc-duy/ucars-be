@@ -11,6 +11,7 @@ class _BaseCarBrandSchema(_pydantic.BaseModel):
 
 class CarBrandSchema(_BaseCarBrandSchema):
     id: str
+    number_of_models: int | None
     status: bool | None
     created_by: str | None
     created_at: _dt.datetime | None
@@ -25,6 +26,7 @@ class GetCarBrandSchema(_BaseCarBrandSchema):
     name: str | None
     logo: str | None
     describe: str | None
+    number_of_models: int | None
     status: bool | None
     created_by: str | None
     created_at: _dt.datetime | None

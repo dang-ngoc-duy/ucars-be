@@ -12,6 +12,7 @@ class CarBrand(_db.Base):
     name = _sql.Column(_sql.String, index=True)
     logo = _sql.Column(_sql.String, index=True)
     describe = _sql.Column(_sql.String, index=True)
+    number_of_models = _sql.Column(_sql.Integer, default=0, index=True)
     status = _sql.Column(_sql.Boolean, default=False)
     created_by = _sql.Column(_sql.String, index=True)
     created_at = _sql.Column(_sql.DateTime, default=_dt.datetime.utcnow)
