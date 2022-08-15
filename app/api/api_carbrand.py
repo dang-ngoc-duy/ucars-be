@@ -1,6 +1,6 @@
 import logging
 from typing import List
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from fastapi_sqlalchemy import db
 
 from helpers.exception_handler import CustomException
@@ -9,12 +9,13 @@ from schemas.base import DataResponse
 from schemas.carbrand import CarBrandSchema, GetCarBrandSchema
 from services.carbrand import CarBrandService
 from models.carbrand import CarBrand
+from core.security import validate_token
 
 logger = logging.getLogger()
 router = APIRouter()
 
 # [GET] - /api/v1/carbrands
-@router.get("", response_model=DataResponse[list[GetCarBrandSchema]])
+@router.get("", response_model=DataResponse[list[GetCarBrandSchema]], dependencies=[Depends(validate_token)])
 def get_all_carbrand() -> list[CarBrand]:
     """
     API Get CarBrands
@@ -26,7 +27,7 @@ def get_all_carbrand() -> list[CarBrand]:
         raise HTTPException(status_code=400, detail=logger.error(e))
 
 # [GET] - /api/v1/carbrands/{id}
-@router.get("/{id}", response_model=DataResponse[CarBrandSchema])
+@router.get("/{id}", response_model=DataResponse[CarBrandSchema], dependencies=[Depends(validate_token)])
 def get_carbrand(id: str) -> CarBrand:
     """
     API Get CarBrands By ID
@@ -38,7 +39,7 @@ def get_carbrand(id: str) -> CarBrand:
         raise HTTPException(status_code=400, detail=logger.error(e))
 
 # [POST] - /api/v1/carbrands
-@router.post("", response_model=DataResponse[CarBrandSchema])
+@router.post("", response_model=DataResponse[CarBrandSchema], dependencies=[Depends(validate_token)])
 def create_carbrand(carbrand_data: CarBrandSchema) -> CarBrand:
     """
     API Create CarBrand

@@ -1,5 +1,5 @@
 import logging
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from fastapi_sqlalchemy import db
 
 from helpers.exception_handler import CustomException
@@ -9,12 +9,13 @@ from schemas.base import DataResponse
 from schemas.car import CarSchema, GetCarSchema
 from services.car import CarService
 from models.car import Car
+from core.security import validate_token
 
 logger = logging.getLogger()
 router = APIRouter()
 
 # [GET] - /api/v1/car
-@router.get("", response_model=DataResponse[list[GetCarSchema]])
+@router.get("", response_model=DataResponse[list[GetCarSchema]], dependencies=[Depends(validate_token)])
 def get_all_car() -> list[Car]:
     """
     API Get Cars
@@ -26,7 +27,7 @@ def get_all_car() -> list[Car]:
         raise HTTPException(status_code=400, detail=logger.error(e))
 
 # [GET] - /api/v1/car/{id}
-@router.get("/{id}", response_model=DataResponse[CarSchema])
+@router.get("/{id}", response_model=DataResponse[CarSchema], dependencies=[Depends(validate_token)])
 def get_car(id: str) -> Car:
     """
     API Get Car By ID
@@ -38,7 +39,7 @@ def get_car(id: str) -> Car:
         raise HTTPException(status_code=400, detail=logger.error(e))
 
 # [POST] - /api/v1/car
-@router.post("", response_model=DataResponse[CarSchema])
+@router.post("", response_model=DataResponse[CarSchema], dependencies=[Depends(validate_token)])
 def create_car(car_data: CarSchema) -> Car:
     """
     API Create Car
