@@ -7,7 +7,7 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 class Settings(BaseSettings):
     PROJECT_NAME = 'UCARS'
-    SECRET_KEY = os.getenv('SECRET_KEY', '')
+    SECRET_KEY = os.getenv('SECRET_KEY')
     API_PREFIX = '/api/v1'
     BACKEND_CORS_ORIGINS = ['*']
     DATABASE_URL = os.getenv('SQL_DATABASE_URL', '')
